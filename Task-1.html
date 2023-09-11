@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+           
+        }
+
+        body {
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgb(104, 148, 187);
+            font-family: serif;
+            text-align: center;
+            background: #111;
+        }
+        .container {
+            border-radius: 10px;
+            margin: 50px;
+            box-sizing: border-box;
+            background: #3b4548;
+        }
+        
+        .container h1{
+            margin-top: 20px;
+            padding-bottom: 20px;
+        }
+        
+        .container label{
+            font-style: italic;
+            font-size: 1.5em;
+            margin: 10px;
+            padding-right: 20px;
+        }
+
+        .to{
+            padding-left:  28px ;
+        }
+  
+        #convert{
+        border: none;
+        outline: none;
+        border-radius: 5px;
+        padding: 10px 30px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        margin-top: 10px;
+        transition: all .3s ease-in;
+        text-transform: uppercase;
+        cursor: pointer;
+        margin-bottom: 20px;
+        
+        text-align: center;
+        align-items: center;
+        }
+
+        #convert:hover{
+        background:linear-gradient(to bottom, #718998,#718998);
+        }
+        
+        select, input {
+            padding: 5px;
+            margin: 10px;
+            font-size: 16px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Temperature Converter</h1>
+        <label for="fromUnit">From:</label>
+        <select id="fromUnit">
+            <option value="celsius">Celsius</option>
+            <option value="kelvin">Kelvin</option>
+            <option value="fahrenheit">Fahrenheit</option>
+        </select>
+        <input type="number" id="temperature" placeholder="Enter temperature" />
+        <div class="to">
+        <label for="toUnit">To:</label>
+        <select id="toUnit">
+            <option value="celsius">Celsius</option>
+            <option value="kelvin">Kelvin</option>
+            <option value="fahrenheit">Fahrenheit</option>
+        </select>
+        <input type="text" id="result" readonly />
+        </div>
+       
+        <button onclick="convertTemperature()" id="convert">Convert</button>
+       
+    </div>
+
+    <script>
+        function convertTemperature() {
+            const fromUnit = document.getElementById("fromUnit").value;
+            const toUnit = document.getElementById("toUnit").value;
+            const temperature = parseFloat(document.getElementById("temperature").value);
+            let result = 0;
+
+            if (fromUnit === toUnit) {
+                result = temperature;
+            } else if (fromUnit === "celsius") {
+                if (toUnit === "fahrenheit") {
+                    result = (temperature * 9/5) + 32;
+                } else if (toUnit === "kelvin") {
+                    result = temperature + 273.15;
+                }
+            } else if (fromUnit === "fahrenheit") {
+                if (toUnit === "celsius") {
+                    result = (temperature - 32) * 5/9;
+                } else if (toUnit === "kelvin") {
+                    result = (temperature - 32) * 5/9 + 273.15;
+                }
+            } else if (fromUnit === "kelvin") {
+                if (toUnit === "celsius") {
+                    result = temperature - 273.15;
+                } else if (toUnit === "fahrenheit") {
+                    result = (temperature - 273.15) * 9/5 + 32;
+                }
+            }
+
+            document.getElementById("result").value = result.toFixed(2);
+        }
+    </script>
+</body>
+</html>
